@@ -28,6 +28,7 @@ describe( "submitData()", () => {
       .reply( 201, function ( uri, requestBody ) {
         reqBody = requestBody
         headers = this.req.headers
+        console.log(rando);
         return {
           id: rando,
           ...requestBody
@@ -38,6 +39,7 @@ describe( "submitData()", () => {
     let email = "steve@steve.com"
 
     await submitData( name, email )
+    
     expect( window.fetch, "A fetch to the API was not found" )
       .to.have.been.called.with( 'http://localhost:3000/users' );
     expect( window.fetch )
@@ -75,8 +77,8 @@ describe( "submitData()", () => {
 
   it( "handles a failed POST request using catch, appends the error message to the DOM", async function () {
     let message = 'Unauthorized Access'
-    nock( 'http://localhost:3000' )
-      .post( '/users' )
+    nock( 'http://localhost:3000/' )
+      .post( 'users' )
       .replyWithError( {
         message: message,
         code: '401',
